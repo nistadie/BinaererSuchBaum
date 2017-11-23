@@ -1,0 +1,2 @@
+# BinaererSuchBaum
+Erstellen eines Suchbaumes
