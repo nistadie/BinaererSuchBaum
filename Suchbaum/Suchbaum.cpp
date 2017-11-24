@@ -10,6 +10,7 @@ Suchbaum::~Suchbaum() {
 
 }
 
+//------------------------------------------------------------------------------------------------------------------------------
 void Suchbaum::insert(int key) throw (const char*) {
 
 	if (top == NULL) {
@@ -40,7 +41,7 @@ void Suchbaum::insert(int key) throw (const char*) {
 	}
 }
 
-
+//-----------------------------------------------------------------------------------------------------------------------------
 //NOCH EINFÜGEN : WENN DER ZU ENTFERNENDE KNOTEN DER WURZELKNOTEN IST!!!!!!
 void Suchbaum::remove(int key) {
 	Knoten* element = search(key);
@@ -99,6 +100,7 @@ void Suchbaum::remove(int key) {
 	delete element;
 }
 
+//---------------------------------------------------------------------------------------------------------------------------
 Knoten* Suchbaum::search(int key) {
 	Knoten* akt_Knoten = top;
 	while (akt_Knoten != NULL) {
@@ -114,12 +116,14 @@ Knoten* Suchbaum::search(int key) {
 	}
 }
 
+//-----------------------------------------------------------------------------------------------------------------------------
 Knoten* Suchbaum::push(int key) {
 	Knoten* temp = new Knoten(key);
 	temp->set_value(key);
 	return temp;
 }
 
+//-----------------------------------------------------------------------------------------------------------------------------
 void Suchbaum::gebeUmliegendeKnotenAus(Knoten* element) {
 
 	cout << "\nDer aktuelle Knoten hat den Schluesselwert: " << element->get_key() << endl;
