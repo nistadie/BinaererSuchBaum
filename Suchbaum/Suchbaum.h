@@ -12,5 +12,4 @@ public:
 	void remove(int); // --------------------------------------------- Entferne den Knoten mit einem bestimmten Schluesselwert
 	Knoten* push(int); // -------------------------------------------- Erstelle einen neuen Speicherbereich einess Knotens und gebe den Zeiger darauf zurueck
 	void gebeUmliegendeKnotenAus(Knoten*); // ------------------------ Ausgabe der Umliegenden Knoten zur Kontrolle!
-
 };

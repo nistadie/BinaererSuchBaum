@@ -42,58 +42,173 @@ void Suchbaum::insert(int key) throw (const char*) {
 }
 
 //-----------------------------------------------------------------------------------------------------------------------------
-//NOCH EINFÜGEN : WENN DER ZU ENTFERNENDE KNOTEN DER WURZELKNOTEN IST!!!!!!
+
 void Suchbaum::remove(int key) {
 	Knoten* element = search(key);
-	Knoten* voriger = element->get_last();
-	// Erster Fall
-	if (element->get_left() == NULL && element->get_right() == NULL) {
-		if (voriger->get_left() == element) {
-			voriger->set_left(NULL);
+
+
+	if (element->get_last() != NULL) { // Falls es nicht die Wurzel ist
+		Knoten* voriger = element->get_last(); // Vorgänger des gesuchten Elementes
+
+		// Erster Fall
+		if (element->get_left() == NULL && element->get_right() == NULL) {
+			//Falls insgesamt nur ein Knoten vorhanden ist, wird dieser einfach am Ende der Funktion geloescht
+			if (voriger->get_left() == element) {
+				voriger->set_left(NULL);
+			}
+			else { voriger->set_right(NULL); }
 		}
-		else { voriger->set_right(NULL); }
-	}
-	//Zweiter Fall - ElternKnoten hat linken Nachfolger
-	else if (voriger->get_left() != NULL && voriger->get_right() == NULL) {
-		voriger->set_left(NULL);
-	}
-	//Zweiter Fall - ElternKnoten hat rechten Nachfolger
-	else if (voriger->get_left() == NULL && voriger->get_right() != NULL) {
-		voriger->set_right(NULL);
-	}
-	//Dritter Fall - Knoten von ganz rechts wird genommen um die Lücke zu füllen
+		//Zweiter Fall - ElternKnoten hat linken Nachfolger
+		else if (element->get_left() != NULL && element->get_right() == NULL) {
+			if (voriger->get_left() == element) { // LINKS
+				voriger->set_left(element->get_left());
+				element->get_left()->set_last(voriger);
+			}
+			else { //RECHTS
+				voriger->set_right(element->get_left());
+				element->get_left()->set_last(voriger);
+			}
+		}
+		//Zweiter Fall - ElternKnoten hat rechten Nachfolger
+		else if (element->get_left() == NULL && element->get_right() != NULL) {
+			if (voriger->get_left() == element) { // LINKS
+				voriger->set_left(element->get_right());
+				element->get_right()->set_last(voriger);
+			}
+			else { //RECHTS
+				voriger->set_right(element->get_right());
+				element->get_right()->set_last(voriger);
+			}
+		}
+
+		//Normalfall
+		//Dritter Fall - Knoten von ganz rechts wird genommen um die Lücke zu füllen
+		else {
+
+			Knoten* akt_Knoten;
+
+			if (element->get_key() > top->get_key()) { //Wenn sich das Element im rechten Teilbaum befindet
+				akt_Knoten = element->get_left();
+				while (akt_Knoten->get_right() != NULL) {
+					akt_Knoten = akt_Knoten->get_right();
+				}
+				if (akt_Knoten->get_left() != NULL) { //Wenn das zu tauschende Element gefunden wurde , jedoch links noch ein Knoten sitzt
+					akt_Knoten->get_left()->set_last(akt_Knoten->get_last()); // Nachfolger mit Vorgänger verbinden
+					akt_Knoten->get_last()->set_right(akt_Knoten->get_left()); //Vorgänger mit Nachfolger verbinden
+				}
+				else {
+					if (element->get_left() != akt_Knoten) { //falls der Neue Knoten nicht der nachfolger des alten ist
+						akt_Knoten->get_last()->set_right(NULL);
+					}
+					else{
+						akt_Knoten->set_left(NULL);
+					}
+				}
+			}
+			else {//Wenn sich das Element im linken Teilbaum befindet
+				akt_Knoten = element->get_right();
+				while (akt_Knoten->get_left() != NULL) {
+					akt_Knoten = akt_Knoten->get_left();
+				}
+				if (akt_Knoten->get_right() != NULL) { //Wenn das zu tauschende Element gefunden wurde , jedoch links noch ein Knoten sitzt
+					akt_Knoten->get_right()->set_last(akt_Knoten->get_last()); // Nachfolger mit Vorgänger verbinden
+					akt_Knoten->get_last()->set_left(akt_Knoten->get_right()); // Vorgänger mit Nachfolger verbinden
+				}
+				else {
+					if (element->get_right() != akt_Knoten) {
+						akt_Knoten->get_last()->set_left(NULL);
+					}
+					else {
+						akt_Knoten->set_right(NULL);
+					}
+				}	
+			}
+
+			//Voränger des zu löschenden Elementes behandeln
+			if (element->get_last()->get_left() == element) {
+				element->get_last()->set_left(akt_Knoten);
+				akt_Knoten->set_last(element->get_last());
+			}
+			else {
+				element->get_last()->set_right(akt_Knoten);
+				akt_Knoten->set_last(element->get_last());
+			}
+
+			//Linker Nachfolger des zu löschenden Elementes behandeln
+			if (element->get_left() != akt_Knoten) {
+				akt_Knoten->set_left(element->get_left());
+				element->get_left()->set_last(akt_Knoten);
+			}
+			else {
+				akt_Knoten->set_left(NULL);
+			}
+
+			//Rechter Nachfolger des zu löschenden Elementes behandeln
+			if (element->get_right() != akt_Knoten) {
+				akt_Knoten->set_right(element->get_right());
+				element->get_right()->set_last(akt_Knoten);
+			}
+			else {
+				akt_Knoten->set_right(NULL);
+			}
+
+			if (top == element) {
+				top = NULL;
+			}
+		}
+	} // Ende element->get_last() != NULL
+//###############################################################################################################
+	//Falls die Wurzel gelöscht werden soll
 	else {
-		Knoten* akt_Knoten = element;
-		while (akt_Knoten->get_right() != NULL) {
-			akt_Knoten = akt_Knoten->get_right();
-			//Wenn der letzte Knoten auf der rechten Seite gefunden wurde
+		//Erster Fall, wenn Element gleich Wurzel
+		if (element->get_left() == NULL && element->get_right() == NULL) {
+			top = NULL;
+		}
+		//Zweiter Fall, wenn Element gleich Wurzel
+		else if (element->get_left() == NULL && element->get_right() != NULL) {
+			top = element->get_right();
+			element->get_right()->set_last(NULL);
+		}
+		//Zweiter Fall, wenn Element gleich Wurzel
+		else if (element->get_left() != NULL && element->get_right() == NULL) {
+			top = element->get_left();
+			element->get_left()->set_last(NULL);
+		}
+		//Dritter Fall, wenn Element gleich Wurzel
+		else {
+			Knoten* akt_Knoten;
 
-			// NEUER KNOTEN = Knoten der von unten rechts im TeilBaum auf die neue Stelle gesetzt wird
-			// ALTER KNOTEN = Stelle des Knoten , der gelöscht wird
+			akt_Knoten = element->get_left();
+			while (akt_Knoten->get_right() != NULL) {
+				akt_Knoten = akt_Knoten->get_right();
+			}
+			if (akt_Knoten->get_left() != NULL) { //Wenn das zu tauschende Element gefunden wurde , jedoch links noch ein Knoten sitzt
+				akt_Knoten->get_left()->set_last(akt_Knoten->get_last()); // Nachfolger mit Vorgänger verbinden
+				akt_Knoten->get_last()->set_right(akt_Knoten->get_left()); //Vorgänger mit Nachfolger verbinden
+			}
+			else {
+				akt_Knoten->get_last()->set_right(NULL);
+			}
 
-			if (akt_Knoten->get_right() == NULL) {
-				//Falls der letzte Knoten gefunden wurde jedoch noch ein Blatt enthält!!
-				if (akt_Knoten->get_left() != NULL) {
-					akt_Knoten->get_last()->set_right(akt_Knoten->get_left()); // -- NEUER KNOTEN | VORIGER ZU KINDERKNOTEN | SETZE LINKEN KINDERKNOTEN
-				}
+			akt_Knoten->set_last(NULL);
+			top = akt_Knoten;
 
-				akt_Knoten->set_last(voriger); // -- NEUER KNOTEN | VORIGER | SETZE VORIGEN AUF NEUEN KNOTEN
+			//Linker Nachfolger des zu löschenden Elementes behandeln
+			if (element->get_left() != NULL) { //Wenn akt_Knoten nicht das Nachfolgeelement ist
+				akt_Knoten->set_left(element->get_left());
+				element->get_left()->set_last(akt_Knoten);
+			}
+			else {
+				akt_Knoten->set_left(NULL);
+			}
 
-				//Zeiger vom Vorgängerknoten wird entfernt
-				if (voriger->get_left() == element) {
-					voriger->set_left(akt_Knoten); // -- ALTER KNOTEN | ELTERNKNOTEN ZU ALTER KNOTEN | SETZE LINKEN KINDERKNOTEN
-				}
-				else { voriger->set_right(akt_Knoten); } // -- ALTER KNOTEN | ELTERNKNOTEN ZU ALTER KNOTEN | SETZE RECHTEN KINDERKNOTEN
-				//NachfolgerKnoten bekommen einen neuen vorigen Zeiger
-				if (element->get_left() != NULL) {
-					element->get_left()->set_last(akt_Knoten);  // -- ALTER KNOTEN | LINKER KINDERKNOTEN ZU VORIGEM | SETZE NEUEN KNOTEN
-					akt_Knoten->set_left(element->get_left());  // -- NEUER KNOTEN | LINKER KINDERKNOTEN | SETZE LINKEN KINDERKNOTEN
-				}
-				if (element->get_right() != akt_Knoten) {
-					element->get_right()->set_last(akt_Knoten); // -- ALTER KNOTEN | RECHTER KINDERKNOTEN | SETZE NEUEN KNOTEN
-					akt_Knoten->set_right(element->get_right()); // -- NEUER KNOTEN | RECHTER KINDERKNOTEN | SETZE AUF KINDERKNOTEN
-				}
-
+			//Rechter Nachfolger des zu löschenden Elementes behandeln
+			if (element->get_right() != NULL) { // Wenn akt_Knoten nicht das Nachfolgeelement ist
+				akt_Knoten->set_right(element->get_right());
+				element->get_right()->set_last(akt_Knoten);
+			}
+			else {
+				akt_Knoten->set_right(NULL);
 			}
 		}
 	}
@@ -138,3 +253,5 @@ void Suchbaum::gebeUmliegendeKnotenAus(Knoten* element) {
 	else {cout << "Der rechte NachfolgeKnoten hat den Schluesselwert: NULL" << endl;}
 
 }
+
+//-------------------------------------------------------------------------------------------------------------------------------

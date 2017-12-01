@@ -16,8 +16,8 @@ int main() {
 		sb.insert(14);
 		sb.insert(13);
 
-		sb.gebeUmliegendeKnotenAus(sb.search(8));
-		sb.remove(8);
+		sb.gebeUmliegendeKnotenAus(sb.search(10));
+		sb.remove(10);
 		sb.gebeUmliegendeKnotenAus(sb.search(9));
 		
 	}
