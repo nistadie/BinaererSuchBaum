@@ -57,3 +57,7 @@ void Knoten::set_left(Knoten* element) {
 void Knoten::set_right(Knoten* element) {
 	this->rechterNachfolger = element;
 }
+
+string Knoten::get_value() {
+	return value;
+}

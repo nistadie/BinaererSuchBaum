@@ -20,4 +20,5 @@ public:
 	void set_left(Knoten*); // --------------------------------------- Setze die Adresse des linken Nachfolgerknotens
 	void set_right(Knoten*); // -------------------------------------- Setze die Adresse des rechten Nachfolgerknotens
 	void set_value(int); // ------------------------------------------ Setze den Inhalt des Knotens
+	string get_value(); // ------------------------------------------- Gebe den Value Inhalt zurueck
 };

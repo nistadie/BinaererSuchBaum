@@ -3,6 +3,8 @@
 #include <iostream>
 
 Suchbaum::Suchbaum() {
+	anzahl_Knoten = 0;
+	hoehe = 0;
 	top = NULL;
 }
 
@@ -14,9 +16,11 @@ Suchbaum::~Suchbaum() {
 void Suchbaum::insert(int key) throw (const char*) {
 
 	if (top == NULL) {
+		anzahl_Knoten++;
 		top = push(key);
 	}
 	else {
+		anzahl_Knoten++;
 		Knoten* akt_Knoten = top;
 		while (akt_Knoten != NULL) {
 			if (key < akt_Knoten->get_key()) {
@@ -43,9 +47,9 @@ void Suchbaum::insert(int key) throw (const char*) {
 
 //-----------------------------------------------------------------------------------------------------------------------------
 
-void Suchbaum::remove(int key) {
-	Knoten* element = search(key);
-
+void Suchbaum::remove(Knoten* element) {
+	//Knoten* element = search(key);
+	anzahl_Knoten--;	
 
 	if (element->get_last() != NULL) { // Falls es nicht die Wurzel ist
 		Knoten* voriger = element->get_last(); // Vorgänger des gesuchten Elementes
@@ -255,3 +259,91 @@ void Suchbaum::gebeUmliegendeKnotenAus(Knoten* element) {
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------
+
+bool Suchbaum::check(Knoten* element) throw (const char*) {
+	if (top == NULL) {
+		return true;
+	}
+
+	if (element->get_left() != NULL) {
+		if (element->get_key() < element->get_left()->get_key()) {
+			throw string("KEIN BINAERBAUM");
+		}
+		else {
+			check(element->get_left());
+		}
+	}
+	if (element->get_right() != NULL) {
+		if (element->get_key() > element->get_right()->get_key()) {
+			throw string("KEIN BINAERBAUM");
+		}
+		else {
+			check(element->get_left());
+		}
+	}
+	else {
+		return true;
+	}
+}
+
+//-----------------------------------------------------------------------------------------------------------------------------
+Knoten* Suchbaum::get_top() {
+	return top;
+}
+
+void Suchbaum::removeByValue(Knoten* element,string value) {
+	string temp = element->get_value();
+
+	if (element->get_left() != NULL) {
+		removeByValue(element->get_left(), value);
+
+	}
+	if (element->get_right() != NULL) {
+		removeByValue(element->get_right(), value);
+	}
+	if (temp == value) {
+		cout << " Element mit dem Inhalt value : " << value << " mit dem Key : " << element->get_key() << " wird geloescht!\n";
+		remove(element);
+	}	
+}
+
+void Suchbaum::height(Knoten* element, int stufe) {
+	if (top == NULL) {
+		return;
+	}
+	if (top == element) {
+		stufe = 1;
+		summeKnoten = 1;
+	}
+	if (stufe > hoehe) {
+		hoehe = stufe;
+	}
+	if (element->get_left() != NULL) {
+		summeKnoten += stufe + 1;
+		height(element->get_left(),stufe+1);
+	}
+	if (element->get_right() != NULL) {
+		summeKnoten += stufe + 1;
+		height(element->get_right(),stufe+1);
+	}
+}
+
+void Suchbaum::set_hoehe() {
+	hoehe++;
+}
+
+int Suchbaum::get_hoehe() {
+	return hoehe;
+}
+
+int Suchbaum::get_anzahl_Knoten() {
+	return anzahl_Knoten;
+}
+
+double Suchbaum::avgLevel() {
+	if (anzahl_Knoten == 0) {
+		return 0;
+	}
+	return summeKnoten / anzahl_Knoten;
+}
+

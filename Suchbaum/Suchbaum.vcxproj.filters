@@ -21,6 +21,9 @@
     <ClInclude Include="Suchbaum.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
+    <ClInclude Include="Debug\RBSuchbaum.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Knoten.cpp">
@@ -30,6 +33,12 @@
       <Filter>Quelldateien</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="Release\RSSuchbaum.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="Debug\RBSuchbaum.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
   </ItemGroup>
