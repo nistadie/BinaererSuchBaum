@@ -111,12 +111,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="Debug\RBSuchbaum.h" />
+    <ClInclude Include="RBSuchbaum.h" />
     <ClInclude Include="Knoten.h" />
     <ClInclude Include="Suchbaum.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Debug\RBSuchbaum.cpp" />
+    <ClCompile Include="RBSuchbaum.cpp" />
     <ClCompile Include="Knoten.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Release\RSSuchbaum.cpp" />
