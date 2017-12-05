@@ -1,6 +1,6 @@
 
 #include <iostream>
-#include "RSBaum.h"
+#include "Suchbaum.h"
 #include "time.h"
 #include <vector>
 #include <algorithm>
@@ -10,7 +10,7 @@ using namespace std;
 
 int main() {
 	try {
-		RSBaum sb;
+		Suchbaum sb;
 
 		const int anzahl = 1000000;
 
@@ -31,14 +31,14 @@ int main() {
 		}
 
 		// ----- AUFGABE 1---------------------
-		////Insert
-		//clock_t start = clock();
-		//for (int i = 0;i < anzahl;i++) {
-		//	sb.insert(zahlen[i]);
-		//}
-		//clock_t end = clock();
-		//double time = ((end - start) * 1000) / CLOCKS_PER_SEC;
-		//cout << "Zeit fuer den Insert bei " << anzahl << " Knoten : " << time<<endl;
+		//Insert
+		clock_t start = clock();
+		for (int i = 0;i < anzahl;i++) {
+			sb.insert(zahlen[i]);
+		}
+		clock_t end = clock();
+		double time = ((end - start) * 1000) / CLOCKS_PER_SEC;
+		cout << "Zeit fuer den Insert bei " << anzahl << " Knoten : " << time<<endl;
 
 		////height
 		//start = clock();
@@ -47,12 +47,12 @@ int main() {
 		//time = ((end - start) * 1000) / CLOCKS_PER_SEC;
 		//cout << "Zeit fuer die height bei " << anzahl << " Knoten : " << time<<endl;
 
-		////check
-		//start = clock();
-		//bool wahr = sb.check(sb.get_top());
-		//end = clock();
-		//time = ((end - start) * 1000) / CLOCKS_PER_SEC;
-		//cout << "Zeit fuer den check bei " << anzahl << " Knoten : " << time<<endl;
+		//check
+		start = clock();
+		bool wahr = sb.check(sb.get_top());
+		end = clock();
+		time = ((end - start) * 1000) / CLOCKS_PER_SEC;
+		cout << "Zeit fuer den check bei " << anzahl << " Knoten : " << time<<endl;
 
 		////remove
 		//start = clock();
@@ -65,28 +65,28 @@ int main() {
 		//cout << "\nAVGLEVEL : " << sb.avgLevel();
 
 		// --------------- AUFGABE 2 ----------------------
-		// Insert
-		clock_t start = clock();
-		for (int i = 0;i < anzahl;i++) {
-			sb.insert(zahlen[i]);
-		}
-		clock_t end = clock();
-		double time = ((end - start) * 1000) / CLOCKS_PER_SEC;
-		cout << "Zeit fuer den Insert bei " << anzahl << " Knoten : " << time<<endl;
+		//// Insert
+		//clock_t start = clock();
+		//for (int i = 0;i < anzahl;i++) {
+		//	sb.insert(zahlen[i]);
+		//}
+		//clock_t end = clock();
+		//double time = ((end - start) * 1000) / CLOCKS_PER_SEC;
+		//cout << "Zeit fuer den Insert bei " << anzahl << " Knoten : " << time<<endl;
 
-		//check
-		start = clock();
-		bool wahr = sb.check();
-		end = clock();
-		time = ((end - start) * 1000) / CLOCKS_PER_SEC;
-		cout << "Zeit fuer den check bei " << anzahl << " Knoten : " << time<<endl;
+		////check
+		//start = clock();
+		//bool wahr = sb.check();
+		//end = clock();
+		//time = ((end - start) * 1000) / CLOCKS_PER_SEC;
+		//cout << "Zeit fuer den check bei " << anzahl << " Knoten : " << time<<endl;
 
-		//height
-		start = clock();
-		sb.bheight();
-		end = clock();
-		time = ((end - start) * 1000) / CLOCKS_PER_SEC;
-		cout << "Zeit fuer die bheight bei " << anzahl << " Knoten : " << time<<endl;
+		////height
+		//start = clock();
+		//sb.bheight();
+		//end = clock();
+		//time = ((end - start) * 1000) / CLOCKS_PER_SEC;
+		//cout << "Zeit fuer die bheight bei " << anzahl << " Knoten : " << time<<endl;
 
 
 

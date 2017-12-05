@@ -18,20 +18,18 @@
 
 class RSBaum : public Suchbaum {
 public:
-	RSBaum();
-	RSBaum(const RSBaum& orig);
-	virtual ~RSBaum();
-	void insert(int);
-	void repairInsert(Knoten*);
-	void rotateLeft(Knoten*);
-	void rotateRight(Knoten*);
-	bool check();
-	bool check(Knoten*);
-	int bheight();
-	bool checkBheight(Knoten*);
-	void bheight(int&, Knoten*, bool&);
-private:
-
+	RSBaum(); // ------------------------------------------- Standardkonstruktor
+	RSBaum(const RSBaum& orig); // ------------------------- Kopierkonstruktor
+	virtual ~RSBaum(); // ---------------------------------- Standarddestruktor
+	void insert(int); // ----------------------------------- Füge einen Knoten dem Baum hinzu 
+	void repairInsert(Knoten*); // ------------------------- Stelle die RS Baum Eigenschaft wieder her
+	void rotateLeft(Knoten*); // --------------------------- Rotiere den Baum nach links
+	void rotateRight(Knoten*); // -------------------------- Rotiere den Baum nach Rechts
+	bool check(); // --------------------------------------- Checke, ob die RS Baum Eigenschaft erfüllt ist
+	bool check(Knoten*); // -------------------------------- Checke, ob die RS Baum Eigenschaft erfüllt ist	
+	int bheight(); // -------------------------------------- Berechne die Höhe des Baumes
+	bool checkBheight(Knoten*); // ------------------------- Berechne die Höhe des Baumes
+	void bheight(int&, Knoten*, bool&); // ----------------- Berechne die Höhe des Baumes
 };
 
 #endif /* RSBAUM_H */

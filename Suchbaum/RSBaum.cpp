@@ -62,12 +62,9 @@ void RSBaum::insert(int key) {
 
 void RSBaum::repairInsert(Knoten* _node) {
 	Knoten* node = _node;
-	//existiert ein parent?
 	if (node->get_last()) {
-		//existiert der parent vom parent?
 		while (node->get_last()->get_istRot()) {
 			if (node->get_last()->get_last()) {
-				// node.parent ist links von node.parent.parent
 				if (node->get_last() == node->get_last()->get_last()->get_left()) {
 					//Fall 1
 					Knoten* y = node->get_last()->get_last()->get_right();
@@ -126,7 +123,6 @@ void RSBaum::repairInsert(Knoten* _node) {
 					}
 				}
 			}
-			//Kontrolle, ob neuer node vater bzw grossvater hat
 			if (node->get_last()) {
 				if (!node->get_last()->get_last()) break;
 			}
@@ -183,12 +179,10 @@ bool RSBaum::check() {
 	return this->check(this->get_top());
 }
 
-bool RSBaum::check(Knoten* node) {
-	//siehe VL 2. Bedigungn RS Baum    
+bool RSBaum::check(Knoten* node) { 
 	if (node->get_last() == NULL) {
 		if (node->get_istRot()) return false;
 	}
-	//siehe VL 3. Bedigungn RS Baum  
 	else if (node->get_istRot()) {
 		if (node->get_left() && node->get_right()) {
 			if (node->get_left()->get_istRot() || node->get_right()->get_istRot()) {
@@ -200,27 +194,25 @@ bool RSBaum::check(Knoten* node) {
 	else if (!node->get_istRot()) {
 		if ((node->get_left() && !node->get_right()) ||
 			(!node->get_left() && node->get_right())) {
-			//rausfinden, welcher nachfolger existiert
+
 			Knoten* nachfolger;
 			if (node->get_left()) {
 				nachfolger = node->get_left();
 			}
 			else nachfolger = node->get_right();
 			if (nachfolger->get_istRot()) {
-				//ist der nachfolger blatt?
+
 				if (nachfolger->get_left() || nachfolger->get_right()) {
 					return false;
 				}
 			}
-			//nachfolger ist schwarz -> fehler
+	
 			else return false;
 		}
 	}
-	//Kontrolle der schwarzen Hoehe
 	if (!this->checkBheight(node)) return false;
 
 
-	//vergleich node key mit node->left.key
 	if (node->get_left()) {
 		if (node->get_key() > node->get_left()->get_key()) {
 			check(node->get_left());
@@ -260,11 +252,11 @@ void RSBaum::bheight(int& schwarzehoehe, Knoten* node, bool& schwarz) {
 	int links = schwarzehoehe;
 	int rechts = schwarzehoehe;
 	if (node->get_left()) {
-		//links existiert
+
 		this->bheight(links, node->get_left(), schwarz);
 	}
 	if (node->get_right()) {
-		//rechts existiert
+
 		this->bheight(rechts, node->get_right(), schwarz);
 	}
 
