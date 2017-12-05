@@ -259,7 +259,6 @@ void Suchbaum::gebeUmliegendeKnotenAus(Knoten* element) {
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------
-
 bool Suchbaum::check(Knoten* element) throw (const char*) {
 	if (top == NULL) {
 		return true;
@@ -302,7 +301,7 @@ void Suchbaum::removeByValue(Knoten* element,string value) {
 		removeByValue(element->get_right(), value);
 	}
 	if (temp == value) {
-		cout << " Element mit dem Inhalt value : " << value << " mit dem Key : " << element->get_key() << " wird geloescht!\n";
+		//cout << " Element mit dem Inhalt value : " << value << " mit dem Key : " << element->get_key() << " wird geloescht!\n";
 		remove(element);
 	}	
 }
@@ -345,5 +344,8 @@ double Suchbaum::avgLevel() {
 		return 0;
 	}
 	return summeKnoten / anzahl_Knoten;
+}
+void Suchbaum::set_top(Knoten* element) {
+	top = element;
 }
 

@@ -3,6 +3,7 @@
 
 
 class Suchbaum {
+protected:
 	Knoten* top; // -------------------------------------------------- Zeiger auf den ersten Knoten im Suchbaum
 	int hoehe; // ---------------------------------------------------- Hoehe des Baums
 	double anzahl_Knoten; //´----------------------------------------- Anzahl der Knoten im Baum
@@ -24,4 +25,5 @@ public:
 	int get_hoehe(); // ---------------------------------------------- Gibt die hoehe des Baums zurueck
 	int get_anzahl_Knoten(); // -------------------------------------- Gibt die Anzahl der Knoten zurueck
 	double avgLevel(); // -------------------------------------------- Gibt die Durchschnittsknotenhöhe zurueck
+	void set_top(Knoten*);
 };

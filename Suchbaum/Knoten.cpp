@@ -15,6 +15,7 @@ Knoten::Knoten(int key) {
 	rechterNachfolger = NULL;
 	vorgaenger = NULL;
 	schluessel = key;
+	istRot = false;
 }
 
 Knoten::~Knoten() {
@@ -60,4 +61,12 @@ void Knoten::set_right(Knoten* element) {
 
 string Knoten::get_value() {
 	return value;
+}
+
+void Knoten::set_istRot(bool rot) {
+	istRot = rot;
+}
+
+bool Knoten::get_istRot() {
+	return istRot;
 }

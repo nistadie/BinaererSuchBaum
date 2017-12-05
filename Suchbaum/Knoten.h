@@ -7,6 +7,7 @@ class Knoten {
 	Knoten* linkerNachfolger; // ------------------------------------- Zeiger auf den linken NachfolgerKnoten
 	Knoten* rechterNachfolger; // ------------------------------------ Zeiger auf den rechten NachfolgerKnoten
 	Knoten* vorgaenger; // ------------------------------------------- Zeiger auf den vorgängerKnoten
+	bool istRot;
 	string value; // ------------------------------------------------- Inhalt des Knotens
 public:
 	Knoten(); // ----------------------------------------------------- Standardkonstruktor
@@ -21,4 +22,7 @@ public:
 	void set_right(Knoten*); // -------------------------------------- Setze die Adresse des rechten Nachfolgerknotens
 	void set_value(int); // ------------------------------------------ Setze den Inhalt des Knotens
 	string get_value(); // ------------------------------------------- Gebe den Value Inhalt zurueck
+	void set_istRot(bool);
+	bool get_istRot();
+
 };

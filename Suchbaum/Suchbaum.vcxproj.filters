@@ -15,18 +15,18 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Knoten.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
     <ClInclude Include="Suchbaum.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="RBSuchbaum.h">
+    <ClInclude Include="Knoten.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="RSBaum.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Knoten.cpp">
+    <ClCompile Include="Release\RSSuchbaum.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
     <ClCompile Include="Suchbaum.cpp">
@@ -35,10 +35,10 @@
     <ClCompile Include="main.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="Release\RSSuchbaum.cpp">
+    <ClCompile Include="Knoten.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="RBSuchbaum.cpp">
+    <ClCompile Include="RSBaum.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
   </ItemGroup>

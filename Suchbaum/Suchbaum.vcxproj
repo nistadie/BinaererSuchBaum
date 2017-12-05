@@ -111,15 +111,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="RBSuchbaum.h" />
     <ClInclude Include="Knoten.h" />
+    <ClInclude Include="RSBaum.h" />
     <ClInclude Include="Suchbaum.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="RBSuchbaum.cpp" />
     <ClCompile Include="Knoten.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Release\RSSuchbaum.cpp" />
+    <ClCompile Include="RSBaum.cpp" />
     <ClCompile Include="Suchbaum.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
